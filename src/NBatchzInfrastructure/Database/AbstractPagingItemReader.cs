@@ -19,7 +19,7 @@ public abstract class AbstractPagingItemReader<T> : ItemStreamReader<T>
 
         if (_current > _pageSize)
         {
-            DoReadPage();
+            DoReadPageAsync();
             _page++;
             if (_current >= _pageSize)
             {
@@ -34,7 +34,7 @@ public abstract class AbstractPagingItemReader<T> : ItemStreamReader<T>
         }
         else
         {
-            return default(T);
+            return default;
         }
 
     }
@@ -45,12 +45,12 @@ public abstract class AbstractPagingItemReader<T> : ItemStreamReader<T>
         {
             if (_currentItemCount >= _maxItemCount)
             {
-                return default(T);
+                return default;
             }
 
             _currentItemCount++;
 
-            T item = DoRead();
+            T? item = DoRead();
 
             if (item != null && item.GetType().IsAssignableFrom(typeof(ItemCountAware)))
             {
@@ -63,7 +63,7 @@ public abstract class AbstractPagingItemReader<T> : ItemStreamReader<T>
 
     }
 
-    protected abstract void DoReadPage();
+    protected abstract Task DoReadPageAsync();
     protected abstract void DoJumpToPage(int itemIndex);
     public abstract Task open();
     public abstract Task update();
