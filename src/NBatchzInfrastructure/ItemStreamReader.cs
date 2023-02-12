@@ -1,5 +1,8 @@
-namespace NbatchzInfrastructure;
-public interface ItemStreamReader<I> : ItemStream, ItemReader<I>
+namespace NBatchzInfrastructure
 {
+    public interface ItemStreamReader<I> : ItemStream, ItemReader<I>
+    {
 
+    }
 }
+
